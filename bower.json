@@ -8,10 +8,10 @@
   ],
   "main": "uvalib-directions.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.4",
+    "polymer": "Polymer/polymer",
     "uvalib-api": "uvalib-components/uvalib-api"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^2.2.3"
+    "web-component-tester": "Polymer/web-component-tester"
   }
 }
