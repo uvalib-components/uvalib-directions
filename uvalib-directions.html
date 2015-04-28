@@ -1,6 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uvalib-api/uvalib-api.html">
-<link rel="import" href="../uvalib-helper-libs/uvalib-helper-libs.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -16,7 +15,6 @@ Element providing solution to no problem in particular.
 -->
 <polymer-element name="uvalib-directions" attributes="auto steps item library">
   <template>
-    <uvalib-helper-libs></uvalib-helper-libs>
     <uvalib-api on-uvalib-api-load="{{apiLoaded}}"></uvalib-api>
   </template>
   <script>
