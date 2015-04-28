@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../uvalib-api/uvalib-api.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-libs.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -13,71 +14,31 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://uvalib-components.github.io/uvalib-directions
 -->
-<polymer-element name="uvalib-directions" attributes="steps item library">
+<polymer-element name="uvalib-directions" attributes="auto steps item library">
   <template>
+    <uvalib-helper-libs></uvalib-helper-libs>
     <uvalib-api on-uvalib-api-load="{{apiLoaded}}"></uvalib-api>
   </template>
   <script>
     Polymer({
-      /**
-       * The `author` attribute sets an initial author
-       *
-       * @attribute author
-       * @type string
-       * @default 'Dimitri Glazkov'
-       */
-      author: 'Dimitri Glazkov',
-
-      /**
-       * `fancy` is a property that does something fancy.
-       *
-       * @property fancy
-       * @type bool
-       * @default false
-       */
-      fancy: false,
-
-      ready: function () {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
-      },
-
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function (greeting) {
-        var response = greeting || 'Hello World!';
-        return 'uvalib-directions says, ' + response;
-      },
-
-      /**
-       * The `uvalib-directions-lasers-success` event is fired whenever we
-       * call fireLasers.
-       *
-       * @event uvalib-directions-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
-       */
-
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function () {
-        this.fire('uvalib-directions-lasers-success', { sound: 'Pew pew pew!' });
-      },
-
+      auto: false,
+      steps: null,
+      item: null,
+      library: null,
       apiLoaded: function (e) {
         this.api = e.detail.directions;
-//        if (this.auto)
-//          this.fetch();
+        if (this.auto)
+          this.fetch()
+      },
+      fetch: function(){
+        return this.api.list().execute( function(results){
+          this.directions = results.directions;
+        }.bind(this) );
+      },
+
+      itemChanged: function(){
+        //make direction steps for item
+        foo="bar";
       }
     });
   </script>
