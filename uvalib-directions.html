@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-api/uvalib-api.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -12,11 +13,9 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://uvalib-components.github.io/uvalib-directions
 -->
-<polymer-element name="uvalib-directions" attributes="author fancy">
+<polymer-element name="uvalib-directions" attributes="steps item library">
   <template>
-    <link rel="stylesheet" href="uvalib-directions.css">
-    <h1>Hello from uvalib-directions</h1>
-    <content></content>
+    <uvalib-api on-uvalib-api-load="{{apiLoaded}}"></uvalib-api>
   </template>
   <script>
     Polymer({
@@ -73,6 +72,12 @@ Element providing solution to no problem in particular.
        */
       fireLasers: function () {
         this.fire('uvalib-directions-lasers-success', { sound: 'Pew pew pew!' });
+      },
+
+      apiLoaded: function (e) {
+        this.api = e.detail.directions;
+//        if (this.auto)
+//          this.fetch();
       }
     });
   </script>
