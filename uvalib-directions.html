@@ -38,8 +38,54 @@ Element providing solution to no problem in particular.
 
       itemChanged: function(){
         //make direction steps for item
-        foo="bar";
-      }
+        if (this.item && this.item.available) {
+          if (!this.steps) this.steps = [];
+          if (this.item.copy.direction) {
+            this.makeSteps(this.item.copy.direction);
+            //this.steps.push(this.item.copy.direction);
+          }
+        } else {
+          this.steps = null;
+        }
+      },
+
+
+      // ToDo: this logic needs to live in the Directions api
+      makeSteps: function(dir) {
+          var tmpSteps = [];
+          dir.dest = dir.title;
+          // add the steps
+          if (dir.floor=="4" && dir.area=="old") {
+            tmpSteps.push(dir);
+          } else if (dir.floor=="4" && dir.area=="new"){
+            tmpSteps.push({area:"new",
+                             floor:"4",
+                             dest:"area",
+                             direction:"Walk past the Old Stacks elevator and through the doorway into the New Stacks."});
+            tmpSteps.push(dir);
+          } else if (dir.area=="old") {
+            tmpSteps.push({area:"old",
+                             dest:"elevator",
+                             floor:"4",
+                             direction:"Walk to the Old Stacks elevator and press the <strong>"+
+                                  ((dir.floor > 4)? "Up":"Down") + "</strong> button."});
+          } else if (dir.area=="new") {
+            tmpSteps.push({area:"new",
+                             dest:"elevator",
+                             floor:"4",
+                             direction:"Walk past the Old Stacks elevator and through the doorway into the New Stacks to the elevator and press the <strong>" +
+                                    ((dir.floor > 4)? "Up":"Down") + "</strong> button."});
+          }
+          if (dir.floor!="4") {
+            tmpSteps.push({area:dir.area,
+                             dest:"floor",
+                             floor:"4",
+                             direction:"Once on the elevator, press the button labeled " + dir.floor + "."});
+            tmpSteps.push(dir);
+          }
+          this.steps = tmpSteps;
+        }
+
     });
   </script>
 </polymer-element>
